@@ -1,0 +1,249 @@
+﻿@model Disaster_App.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+
+<div class="login-container">
+    <div class="login-form">
+        <h1 class="login-title">Welcome Back</h1>
+        <p class="login-subtitle">Sign in to your account</p>
+        <form asp-action="Login" method="post" class="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email Address</label>
+                <input asp-for="Email" class="form-input" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PasswordHash" class="form-label">Password</label>
+                <input asp-for="PasswordHash" type="password" class="form-input" placeholder="Enter your password" />
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+            </div>
+
+          @*   <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" />
+                    Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div> *@
+
+            <button type="submit" class="login-button">Sign In</button>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="@Url.Action("Register", "Home")" class="register-link-text">Sign up here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    /* Background styles */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .background-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: url('/images/flat-mountains.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* Added overlay for better text readability */
+    }
+
+    /* Login form styles */
+    .login-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .login-form {
+        background: Grey;
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        width: 100%;
+        max-width: 450px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .login-title {
+        color: #ffffff;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-subtitle {
+        color: #AED6F1;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        color: #fff;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid rgba(93, 173, 226, 0.3);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #5DADE2;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+    .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .remember-me {
+        color: #AED6F1;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .forgot-password {
+        color: #1AC782;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+        .forgot-password:hover {
+            color: #17B074;
+        }
+
+    .login-button {
+        width: 100%;
+        background: linear-gradient(135deg, #DB160F, #000000); /* Fixed missing comma */
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+    }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(219, 22, 15, 0.4);
+        }
+
+    .register-link {
+        text-align: center;
+    }
+
+        .register-link p {
+            color: #AED6F1;
+            margin: 0;
+        }
+
+    .register-link-text {
+        color: #5DADE2;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+        .register-link-text:hover {
+            color: #1AC782;
+        }
+
+    /* Responsive design */
+    @@media (max-width: 480px) {
+        .login-form {
+            padding: 30px 20px;
+            margin: 10px;
+        }
+
+        .login-title {
+            font-size: 2rem;
+        }
+
+        .form-options {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .background-container {
+            background-attachment: scroll;
+        }
+    }
+</style>
+
+<!-- Background Image Container -->
+<div class="background-container">
+    <div class="background-overlay"></div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,283 @@
+﻿@{
+    ViewData["Title"] = "UserHome";
+}
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .background-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: url('/images/flat-mountains.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .dashboard-container {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .dashboard-title {
+        color: #ffffff;
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .dashboard-subtitle {
+        color: #e0e0e0;
+        font-size: 1.3rem;
+        margin: 0;
+    }
+
+    .buttons-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+        max-width: 900px;
+    }
+
+    .button-row {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+    }
+
+    .dashboard-button {
+        flex: 1;
+        background: Orange;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        padding: 40px 30px;
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .dashboard-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.9);
+            text-decoration: none;
+        }
+
+    .button-content {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .button-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .button-text {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0;
+        color: #ffffff;
+    }
+
+    .button-description {
+        font-size: 1rem;
+        opacity: 0.9;
+        margin: 0;
+        color: #e0e0e0;
+    }
+
+    /* Individual button styles with accent colors */
+    .incident-button {
+        border-color: #ff6b6b;
+        box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+    }
+
+        .incident-button:hover {
+            border-color: #ff5252;
+            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.3);
+        }
+
+    .donation-button {
+        border-color: #4ecdc4;
+        box-shadow: 0 8px 32px rgba(78, 205, 196, 0.2);
+    }
+
+        .donation-button:hover {
+            border-color: #26a69a;
+            box-shadow: 0 20px 50px rgba(78, 205, 196, 0.3);
+        }
+
+    .view-incidents-button {
+        border-color: #ffd93d;
+        box-shadow: 0 8px 32px rgba(255, 217, 61, 0.2);
+    }
+
+        .view-incidents-button:hover {
+            border-color: #ffd300;
+            box-shadow: 0 20px 50px rgba(255, 217, 61, 0.3);
+        }
+
+    .view-donations-button {
+        border-color: #6c5ce7;
+        box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
+    }
+
+        .view-donations-button:hover {
+            border-color: #5b4fcf;
+            box-shadow: 0 20px 50px rgba(108, 92, 231, 0.3);
+        }
+
+    /* Responsive design */
+    @@media (max-width: 768px) {
+        .button-row {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dashboard-button {
+            min-height: 150px;
+            padding: 30px 20px;
+            border-radius: 40px;
+        }
+
+        .dashboard-title {
+            font-size: 2.2rem;
+        }
+
+        .button-text {
+            font-size: 1.3rem;
+        }
+
+        .button-icon {
+            font-size: 2.5rem;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .dashboard-container {
+            padding: 20px 15px;
+        }
+
+        .dashboard-title {
+            font-size: 1.8rem;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .button-text {
+            font-size: 1.1rem;
+        }
+
+        .button-description {
+            font-size: 0.9rem;
+        }
+
+        .dashboard-button {
+            border-radius: 35px;
+        }
+
+        .background-container {
+            background-attachment: scroll;
+        }
+    }
+</style>
+
+<!-- Background Image Container -->
+<div class="background-container">
+    <div class="background-overlay"></div>
+</div>
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Emergency Control Center</h1>
+        <p class="dashboard-subtitle">Coordinate disaster response efforts efficiently</p>
+    </div>
+
+    <div class="buttons-grid">
+        <!-- Row 1 -->
+        <div class="button-row">
+            <a href="@Url.Action("LogIncident", "Home")" class="dashboard-button incident-button">
+                <div class="button-content">
+                    <span class="button-icon">🚨</span>
+                    <span class="button-text">Report Emergency</span>
+                    <span class="button-description">Submit new incident reports</span>
+                </div>
+            </a>
+
+            <a href="@Url.Action("LogDonation", "Home")" class="dashboard-button donation-button">
+                <div class="button-content">
+                    <span class="button-icon">❤️</span>
+                    <span class="button-text">Make Donation</span>
+                    <span class="button-description">Contribute essential resources</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="button-row">
+            <a href="@Url.Action("ViewIncidents", "Home")" class="dashboard-button view-incidents-button">
+                <div class="button-content">
+                    <span class="button-icon">📋</span>
+                    <span class="button-text">Monitor Incidents</span>
+                    <span class="button-description">Review all active emergencies</span>
+                </div>
+            </a>
+
+            <a href="@Url.Action("ViewDonations", "Home")" class="dashboard-button view-donations-button">
+                <div class="button-content">
+                    <span class="button-icon">📦</span>
+                    <span class="button-text">Resource Inventory</span>
+                    <span class="button-description">Manage available supplies</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

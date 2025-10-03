@@ -1,0 +1,317 @@
+﻿@model Disaster_App.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+
+
+<div class="register-container">
+    <div class="register-form">
+        <h1 class="register-title">Create Account</h1>
+        <p class="register-subtitle">Join us in making a difference</p>
+
+        <form asp-action="Register" class="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="FullName" class="form-label">Full Name</label>
+                    <input asp-for="FullName" class="form-input" placeholder="Enter your full name" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email Address</label>
+                    <input asp-for="Email" class="form-input" placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="PasswordHash" class="form-label">Password</label>
+                    <input asp-for="PasswordHash" type="password" class="form-input" placeholder="Create a password" />
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Phone" class="form-label">Phone Number</label>
+                    <input asp-for="Phone" class="form-input" placeholder="Enter your phone number" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Role" class="form-label">Account Type</label>
+                    <select asp-for="Role" class="form-input">
+                        <option value="">Select your role</option>
+                        <option value="User">General User</option>
+                        <option value="Volunteer">Volunteer</option>
+                        <option value="Admin">Administrator</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="terms-agreement">
+                    <input type="checkbox" required />
+                    I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" class="register-button">Create Account</button>
+
+            <div class="login-link">
+                <p>Already have an account? <a href="@Url.Action("Login", "Home")" class="login-link-text">Sign in here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<style>
+    /* Background styles */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .background-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: url('/images/flat-mountains.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* Added overlay for better text readability */
+    }
+
+    .register-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .register-form {
+        background: Grey;
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .register-title {
+        color: Yellow;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .register-subtitle {
+        color: #AED6F1;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        flex: 1;
+        margin-bottom: 0;
+    }
+
+    .form-label {
+        display: block;
+        color: #ffff;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid rgba(93, 173, 226, 0.3);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #5DADE2;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+    select.form-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235DADE2' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 12px;
+        padding-right: 40px;
+    }
+        /* Dropdown options styling */
+        select.form-input option {
+            background-color: black !important;
+            color: white !important;
+            padding: 10px;
+        }
+    .form-options {
+        margin-bottom: 25px;
+    }
+
+    .terms-agreement {
+        color: #AED6F1;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.4;
+    }
+
+        .terms-agreement input[type="checkbox"] {
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+    .terms-link {
+        color: #1AC782;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .terms-link:hover {
+            color: #17B074;
+        }
+
+    .register-button {
+        width: 100%;
+        background: linear-gradient(135deg, #FF7B00, #000000);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+    }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 199, 130, 0.4);
+        }
+
+    .login-link {
+        text-align: center;
+    }
+
+        .login-link p {
+            color: #AED6F1;
+            margin: 0;
+        }
+
+    .login-link-text {
+        color: #5DADE2;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+        .login-link-text:hover {
+            color: #1AC782;
+        }
+
+    .text-danger {
+        color: #ff6b6b !important;
+        font-size: 0.8rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    /* Responsive design */
+    @@media (max-width: 768px) {
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .register-form {
+            padding: 30px 20px;
+            margin: 10px;
+        }
+
+        .register-title {
+            font-size: 2rem;
+        }
+
+        .terms-agreement {
+            font-size: 0.8rem;
+        }
+    }
+</style>
+<!-- Background Image Container -->
+<div class="background-container">
+    <div class="background-overlay"></div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
