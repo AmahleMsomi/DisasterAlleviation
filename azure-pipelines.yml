@@ -1,0 +1,63 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+stages:
+# ================================
+# Stage 1: Build & Test
+# ================================
+- stage: Build
+  displayName: 'Build and Test'
+  jobs:
+  - job: BuildAndTest
+    displayName: 'Build & Run xUnit Tests'
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: '7.x'  # Change to 8.x if using .NET 8
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+
+    - script: dotnet restore
+      displayName: 'Restore NuGet Packages'
+
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'Build Project'
+
+    - script: dotnet test --configuration $(buildConfiguration) --logger trx --collect:"XPlat Code Coverage"
+      displayName: 'Run xUnit Tests with Coverage'
+
+# ================================
+# Stage 2: Deploy
+# ================================
+- stage: Deploy
+  displayName: 'Deploy to Azure Web App'
+  dependsOn: Build
+  jobs:
+  - deployment: DeployWebApp
+    displayName: 'Deploy ASP.NET Core Web App'
+    environment: 'Production'
+    pool:
+      vmImage: 'windows-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy to Azure App Service'
+            inputs:
+              azureSubscription: '<Your-Service-Connection>'
+              appType: 'webApp'
+              appName: '<Your-App-Service-Name>'
+              package: '$(System.DefaultWorkingDirectory)/**/*.zip'
